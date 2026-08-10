@@ -7,15 +7,24 @@ void main() {
     BankService bankService = new BankService();
     while(true){
         System.out.printf("""
-            Welcome To Mini Bank
-           ======================
-           Please choose one
-           1. Create Account
-           2. Update Account
-           3. Show Account Info
-           4. Delete Account
-           5. Show All Accounts
-            """);
+    ╔══════════════════════════════════════════════════════════╗
+    ║                                                          ║
+    ║    ★  ★  ★  M I N I  B A N K  ★  ★  ★                  ║
+    ║                                                          ║
+    ║    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
+    ║                                                          ║
+    ║    ◆  Main Menu                                          ║
+    ║                                                          ║
+    ║        1.  ✧  Create Account                             ║
+    ║        2.  ✧  Update Account                             ║
+    ║        3.  ✧  Show Account Info                          ║
+    ║        4.  ✧  Delete Account                             ║
+    ║        5.  ✧  Show All Accounts                          ║
+    ║                                                          ║
+    ║    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
+    ║                                                          ║
+    ╚══════════════════════════════════════════════════════════╝
+    """);
         System.out.print("Enter : ");
         int userChosenNum = scanner.nextInt();
         scanner.nextLine();
@@ -23,9 +32,10 @@ void main() {
         switch(userChosenNum) {
             case 1:
                 System.out.printf("""
-                        Create Your Account
-                        -------------------
-                        """);
+    ════════════════════════════════════════════
+        ✧✧  CREATE YOUR ACCOUNT  ✧✧
+    ════════════════════════════════════════════
+    """);
 
                 String fullName;
                 while (true) {
@@ -52,7 +62,13 @@ void main() {
                     if (hasValidator) {
                         System.out.println("Name must Include Letter, space, hyphen and apostrophe only!");
                     } else {
-                        System.out.println("Name Created Successfully " + fullName + ".");
+                        System.out.printf("""
+    . . . . . . . . . . . . . . . . . . . . . . . . . .
+    .                                                   
+    .    ✅ Name Created Successfully: %s ✅           
+    .                                                   
+    . . . . . . . . . . . . . . . . . . . . . . . . . .
+    """, fullName);
                         break;
                     }
 
@@ -63,12 +79,12 @@ void main() {
                     System.out.print("Create Password : ");
                     psw = scanner.nextLine();
 
-                    if( psw.length() < 0 || psw.length() > 8){
+                    if (psw.length() < 0 || psw.length() > 8) {
                         System.out.println("Password must have up to 8 characters!");
                         continue;
                     }
 
-                    if(psw == null || psw.isBlank() || psw.isEmpty()){
+                    if (psw == null || psw.isBlank() || psw.isEmpty()) {
                         System.out.println("Enter Your Password!");
                         continue;
                     }
@@ -80,26 +96,60 @@ void main() {
                     boolean hasSpecialChar = false;
                     String specialChars = "!@#$%^&*()-_=+[]{}|;:',.<>/?";
 
-                    for( char ch : psw.toCharArray()){
-                        if(Character.isUpperCase(ch)) hasUpper = true;
-                        if(Character.isLowerCase(ch)) hasLower = true;
-                        if(Character.isDigit(ch)) hasDigit = true;
-                        if(specialChars.contains(String.valueOf(ch))) hasSpecialChar = true;
-                        if(Character.isWhitespace(ch)) hasWhiteSpace = false;
+                    for (char ch : psw.toCharArray()) {
+                        if (Character.isUpperCase(ch)) hasUpper = true;
+                        if (Character.isLowerCase(ch)) hasLower = true;
+                        if (Character.isDigit(ch)) hasDigit = true;
+                        if (specialChars.contains(String.valueOf(ch))) hasSpecialChar = true;
+                        if (Character.isWhitespace(ch)) hasWhiteSpace = false;
                     }
 
-                    if (hasUpper && hasLower && hasDigit && !hasWhiteSpace && hasSpecialChar){
-                        System.out.println("Password Created Successfully!");
+                    if (hasUpper && hasLower && hasDigit && !hasWhiteSpace && hasSpecialChar) {
+                        System.out.printf("""
+    . . . . . . . . . . . . . . . . . . . . . . . . . .
+    .                                                  
+    .    🔐 Password Created Successfully! 🔐          
+    .                                                  
+    . . . . . . . . . . . . . . . . . . . . . . . . . .
+    """);
                         break;
                     } else {
                         System.out.println("Password must contain Uppercase, Lowercase, Digit, Special Character, and 8 character!");
                     }
                 }
 
-                System.out.print("Date Of Birth(YYYY-MM-DD) : ");
-                String rawDOB = scanner.nextLine();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate dateOfBirth = LocalDate.parse(rawDOB, formatter);
+                LocalDate dateOfBirth;
+                while (true) {
+                    System.out.print("Date Of Birth(YYYY-MM-DD) : ");
+                    String rawDOB;
+                    rawDOB = scanner.nextLine();
+
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        dateOfBirth = LocalDate.parse(rawDOB, formatter);
+                        LocalDate today = LocalDate.now();
+                        boolean isAdult = dateOfBirth.isBefore(today.minusYears(18));
+                        boolean isOldest = dateOfBirth.isAfter(today.minusYears(120));
+                        if (isAdult && isOldest) {
+                            System.out.printf("""
+    . . . . . . . . . . . . . . . . . . . . . . . . . .
+    .
+    .    🎉✨  AGE VERIFIED SUCCESSFULLY!  ✨🎉        
+    .             
+    . . . . . . . . . . . . . . . . . . . . . . . . . .
+    """);
+                            break;
+                        } else {
+                            System.out.println("Age must be after 18 and under 120!");
+
+                        }
+                    } catch (DateTimeException e) {
+                        System.out.println("Illegal Year, Month or Date Provided!");
+
+                    }
+
+                }
+
 
                 System.out.print("Email : ");
                 String email = scanner.nextLine();
