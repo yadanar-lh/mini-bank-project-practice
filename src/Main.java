@@ -58,8 +58,43 @@ void main() {
 
                 }
 
-                System.out.print("Create Password : ");
-                String psw = scanner.nextLine();
+                String psw;
+                while (true) {
+                    System.out.print("Create Password : ");
+                    psw = scanner.nextLine();
+
+                    if( psw.length() < 0 || psw.length() > 8){
+                        System.out.println("Password must have up to 8 characters!");
+                        continue;
+                    }
+
+                    if(psw == null || psw.isBlank() || psw.isEmpty()){
+                        System.out.println("Enter Your Password!");
+                        continue;
+                    }
+
+                    boolean hasUpper = false;
+                    boolean hasLower = false;
+                    boolean hasDigit = false;
+                    boolean hasWhiteSpace = false;
+                    boolean hasSpecialChar = false;
+                    String specialChars = "!@#$%^&*()-_=+[]{}|;:',.<>/?";
+
+                    for( char ch : psw.toCharArray()){
+                        if(Character.isUpperCase(ch)) hasUpper = true;
+                        if(Character.isLowerCase(ch)) hasLower = true;
+                        if(Character.isDigit(ch)) hasDigit = true;
+                        if(specialChars.contains(String.valueOf(ch))) hasSpecialChar = true;
+                        if(Character.isWhitespace(ch)) hasWhiteSpace = false;
+                    }
+
+                    if (hasUpper && hasLower && hasDigit && !hasWhiteSpace && hasSpecialChar){
+                        System.out.println("Password Created Successfully!");
+                        break;
+                    } else {
+                        System.out.println("Password must contain Uppercase, Lowercase, Digit, Special Character, and 8 character!");
+                    }
+                }
 
                 System.out.print("Date Of Birth(YYYY-MM-DD) : ");
                 String rawDOB = scanner.nextLine();
