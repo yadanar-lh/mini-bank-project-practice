@@ -11,9 +11,9 @@ public class BankService {
     private int accountId = 1;
 
     //Create User Account
-    public void createUser(String fullName, LocalDate dateOfBirth, String email, String phoneNumber, double balance, boolean isActive){
+    public void createUser(String fullName, String psw,LocalDate dateOfBirth, String email, String phoneNumber, double balance, boolean isActive){
 
-        User newUser = new User(accountId,fullName,dateOfBirth,email,phoneNumber,balance,isActive);
+        User newUser = new User(accountId,fullName,psw,dateOfBirth,email,phoneNumber,balance,isActive);
         userAccounts.add(newUser);
 
         //Show uer account created

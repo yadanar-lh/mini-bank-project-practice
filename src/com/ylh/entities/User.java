@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class User {
     private int accountId;
     private String fullName;
+    private String psw;
     private LocalDate dateOfBirth;
     private String email;
     private String phoneNumber;
@@ -67,9 +68,10 @@ public class User {
         isActive = active;
     }
 
-    public User(int accountId, String fullName, LocalDate dateOfBirth, String email, String phoneNumber, double balance, boolean isActive) {
+    public User(int accountId, String fullName, String psw, LocalDate dateOfBirth, String email, String phoneNumber, double balance, boolean isActive) {
         this.accountId = accountId;
         this.fullName = fullName;
+        this.psw = psw;
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.phoneNumber = phoneNumber;
