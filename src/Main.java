@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import java.util.Scanner;
-void main() {
+void main() throws InterruptedException {
     Scanner scanner = new Scanner(System.in);
     BankService bankService = new BankService();
 
@@ -198,10 +198,27 @@ void main() {
                     }
                 }
 
+                double balance;
+                while(true){
+                    boolean isValid = false;
+                   try{
+                       System.out.print("Initial Balance ($): ");
+                       balance = scanner.nextDouble();
+                       scanner.nextLine();
+                       isValid = true;
+                       System.out.printf("""
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                .
+                                .    🎉✨  Your Balance : $ %.2f  ✨🎉        
+                                .             
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                """, balance);
+                       break;
 
-                System.out.print("Initial Balance : ");
-                double balance = scanner.nextDouble();
-                scanner.nextLine();
+                   } catch (InputMismatchException e){
+                       System.out.println("⚠️ You entered a character, Just enter Numbers!");
+                   }
+                }
 
                 System.out.print("Is Active(Y/N) : ");
                 String isActiveInput = scanner.nextLine();
@@ -211,8 +228,30 @@ void main() {
                 }
 
                 bankService.createUser(fullName, psw, dateOfBirth, email, phoneNumber, balance, isActive);
+
+//                System.out.println("Do you want to Update Your Account? (yes/no)");
+                System.out.println("Want to go to Main Menu? (yes/no)");
+                String inputToMenu = scanner.nextLine();
+                if(inputToMenu.equalsIgnoreCase("yes")){
+                    continue;
+                } else if (inputToMenu.equalsIgnoreCase("no")) {
+                    System.out.println("All your accounts will be lost as this is Temporary Array, Are You Sure?");
+                    String doubleCheckInput = scanner.nextLine();
+                    if(doubleCheckInput.equalsIgnoreCase("yes")){
+                        break;
+                    } else if (doubleCheckInput.equalsIgnoreCase("no")){
+                        for(int i = 3; i >= 0; i--){
+                            String[] spinner = {"◐", "◓", "◑", "◒"};
+                            System.out.printf("\r┃ ⏳ %s Going to Main Menu in %ds ┃", spinner[i % 4], i);
+                            Thread.sleep(1000);
+
+                        }
+                        continue;
+                    }
+                }
                 break;
         }
+
     }
 
 

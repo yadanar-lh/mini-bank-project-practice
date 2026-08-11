@@ -18,17 +18,22 @@ public class BankService {
 
         //Show uer account created
         System.out.printf("""
-                
-                Account Successfully Created!
-                
-                Account Id : %d
-                Full Name : %s
-                DOB : %s
-                Email : %s
-                Phone Number : %s
-                Balance : %.2f
-                IsActive : %b
-                """, accountId,fullName,dateOfBirth,email,phoneNumber,balance,isActive);
+    ─────────────────────────────────────────────────────────────────────
+        ✨ ACCOUNT SUCCESSFULLY CREATED! ✨
+    ─────────────────────────────────────────────────────────────────────
+    
+    📌  Account ID     : %d
+    📌  Full Name      : %s
+    📌  DOB            : %s
+    📌  Email          : %s
+    📌  Phone          : %s
+    📌  Balance        : $%.2f
+    📌  Status         : %s
+    
+    ─────────────────────────────────────────────────────────────────────
+        🎊 Thank you for joining Mini Bank! 🎊
+    ─────────────────────────────────────────────────────────────────────
+    """, accountId, fullName, dateOfBirth, email, phoneNumber, balance, isActive);
 
         accountId++;
 
