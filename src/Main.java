@@ -1,10 +1,13 @@
 import com.ylh.entities.User;
 import com.ylh.service.BankService;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import java.util.Scanner;
 void main() {
     Scanner scanner = new Scanner(System.in);
     BankService bankService = new BankService();
+
     while(true){
         System.out.printf("""
     ╔══════════════════════════════════════════════════════════╗
@@ -32,10 +35,10 @@ void main() {
         switch(userChosenNum) {
             case 1:
                 System.out.printf("""
-    ════════════════════════════════════════════
-        ✧✧  CREATE YOUR ACCOUNT  ✧✧
-    ════════════════════════════════════════════
-    """);
+                        ════════════════════════════════════════════
+                            ✧✧  CREATE YOUR ACCOUNT  ✧✧
+                        ════════════════════════════════════════════
+                        """);
 
                 String fullName;
                 while (true) {
@@ -63,12 +66,12 @@ void main() {
                         System.out.println("Name must Include Letter, space, hyphen and apostrophe only!");
                     } else {
                         System.out.printf("""
-    . . . . . . . . . . . . . . . . . . . . . . . . . .
-    .                                                   
-    .    ✅ Name Created Successfully: %s ✅           
-    .                                                   
-    . . . . . . . . . . . . . . . . . . . . . . . . . .
-    """, fullName);
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                .                                                   
+                                .    ✅ Name Created Successfully: %s ✅           
+                                .                                                   
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                """, fullName);
                         break;
                     }
 
@@ -85,7 +88,7 @@ void main() {
                     }
 
                     if (psw == null || psw.isBlank() || psw.isEmpty()) {
-                        System.out.println("Enter Your Password!");
+                        System.out.println("⚠️ Enter Your Password! ⚠️");
                         continue;
                     }
 
@@ -106,12 +109,12 @@ void main() {
 
                     if (hasUpper && hasLower && hasDigit && !hasWhiteSpace && hasSpecialChar) {
                         System.out.printf("""
-    . . . . . . . . . . . . . . . . . . . . . . . . . .
-    .                                                  
-    .    🔐 Password Created Successfully! 🔐          
-    .                                                  
-    . . . . . . . . . . . . . . . . . . . . . . . . . .
-    """);
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                .                                                  
+                                .    🔐 Password Created Successfully! 🔐          
+                                .                                                  
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                """);
                         break;
                     } else {
                         System.out.println("Password must contain Uppercase, Lowercase, Digit, Special Character, and 8 character!");
@@ -132,15 +135,15 @@ void main() {
                         boolean isOldest = dateOfBirth.isAfter(today.minusYears(120));
                         if (isAdult && isOldest) {
                             System.out.printf("""
-    . . . . . . . . . . . . . . . . . . . . . . . . . .
-    .
-    .    🎉✨  AGE VERIFIED SUCCESSFULLY!  ✨🎉        
-    .             
-    . . . . . . . . . . . . . . . . . . . . . . . . . .
-    """);
+                                    . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    .
+                                    .    🎉✨  AGE VERIFIED SUCCESSFULLY!  ✨🎉        
+                                    .             
+                                    . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    """);
                             break;
                         } else {
-                            System.out.println("Age must be after 18 and under 120!");
+                            System.out.println("⚠️ Age must be after 18 and under 120! ⚠️");
 
                         }
                     } catch (DateTimeException e) {
@@ -151,14 +154,50 @@ void main() {
                 }
 
 
-                System.out.print("Email : ");
-                String email = scanner.nextLine();
-                if (email == null || !email.contains("@")) {
-                    System.out.println("Invalid Email");
+                String email;
+                while (true) {
+                    System.out.print("Email : ");
+                    email = scanner.nextLine();
+                    if (email == null || !email.contains("@")) {
+                        System.out.println("Invalid Email");
+                    } else {
+                        System.out.printf("""
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                .
+                                .    🎉✨  Email VERIFIED SUCCESSFULLY!  ✨🎉        
+                                .             
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                """);
+                        break;
+                    }
                 }
 
-                System.out.print("Phone Number : ");
-                String phoneNumber = scanner.nextLine();
+                final Pattern MYANMAR_PH_REGEX = Pattern.compile("^(09\\d{7,9}|01\\d{5,7})$");
+                String phoneNumber;
+                while (true) {
+                    System.out.print("Phone Number : ");
+                    phoneNumber = scanner.nextLine();
+                    String cleanPhNum = phoneNumber.replaceAll("[\\s\\-\\(\\)]", "");
+                    if(cleanPhNum == null){
+                        System.out.println("⚠️ Enter Your Phone Number! ⚠️");
+                        continue;
+                    }
+
+                    Matcher matcher = MYANMAR_PH_REGEX.matcher(cleanPhNum);
+                    if(matcher.matches()){
+                        System.out.printf("""
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                .
+                                .    🎉✨  PHONE NUMBER ADDED SUCCESSFULLY!  ✨🎉        
+                                .             
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                """);
+                        break;
+                    } else {
+                        System.out.println("Invalid Phone Number! Try Again!");
+                    }
+                }
+
 
                 System.out.print("Initial Balance : ");
                 double balance = scanner.nextDouble();
