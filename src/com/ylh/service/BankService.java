@@ -4,9 +4,11 @@ import com.ylh.entities.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BankService {
 
+    Scanner scanner = new Scanner(System.in);
     private ArrayList<User> userAccounts = new ArrayList<>();
     private int accountId = 1;
 
@@ -38,6 +40,54 @@ public class BankService {
         accountId++;
 
     }
+
+    public int validateUser(){
+        while(true){
+            System.out.print("Enter User ID : ");
+            int userID = scanner.nextInt();
+            scanner.nextLine();
+            boolean isFound = false;
+            int index = 0;
+
+            for(User users : userAccounts){
+                if(users.getAccountId() == userID){
+                    index = userAccounts.indexOf(users);
+                    isFound = true;
+                    break;
+                }
+            }
+
+            if(isFound){
+                System.out.print("Enter Password : ");
+                String userPsw = scanner.nextLine();
+                boolean isMatched = false;
+                if(userPsw.equals(userAccounts.get(index).getPsw())){
+                    System.out.printf("""
+    ✿ ✿ ✿ ✿ ✿  Welcome, %s!  ✿ ✿ ✿ ✿ ✿
+    """, userAccounts.get(index).getFullName());
+                    return index;
+                }
+            }
+
+            if(!isFound){
+                System.out.println("User ID not Found! Try Again!");
+
+            }
+        }
+
+    }
+
+    public void updateUserName(String newName){
+        int index = validateUser();
+        userAccounts.get(index).setFullName(newName);
+        System.out.printf("""
+    ························································
+    ·        ✅ Name Updated Successfully!               
+    ·        👤 Your name is set to: %s                  
+    ························································
+    """, newName);
+    }
+
 
 
 }

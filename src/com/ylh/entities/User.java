@@ -12,6 +12,14 @@ public class User {
     private double balance;
     private boolean isActive;
 
+    public String getPsw() {
+        return psw;
+    }
+
+    public void setPsw(String psw) {
+        this.psw = psw;
+    }
+
     public int getAccountId() {
         return accountId;
     }

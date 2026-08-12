@@ -230,12 +230,14 @@ void main() throws InterruptedException {
                 bankService.createUser(fullName, psw, dateOfBirth, email, phoneNumber, balance, isActive);
 
 //                System.out.println("Do you want to Update Your Account? (yes/no)");
+
+//                Asking to go to Main Menu
                 System.out.println("Want to go to Main Menu? (yes/no)");
                 String inputToMenu = scanner.nextLine();
                 if(inputToMenu.equalsIgnoreCase("yes")){
                     continue;
                 } else if (inputToMenu.equalsIgnoreCase("no")) {
-                    System.out.println("All your accounts will be lost as this is Temporary Array, Are You Sure?");
+                    System.out.println("All your accounts will be lost as this is Temporary Array, Are You Sure?(Yes/no)");
                     String doubleCheckInput = scanner.nextLine();
                     if(doubleCheckInput.equalsIgnoreCase("yes")){
                         break;
@@ -250,6 +252,35 @@ void main() throws InterruptedException {
                     }
                 }
                 break;
+
+            case 2:
+                System.out.printf("""
+                        ════════════════════════════════════════════
+                            ✧✧  UPDATE YOUR ACCOUNT  ✧✧
+                        ════════════════════════════════════════════
+                        1. NAME
+                        2. PASSWORD
+                        3. EMAIL
+                        4. PHONE NUMBER
+                        ════════════════════════════════════════════
+                        """);
+                System.out.print("Enter : ");
+                int userInput = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (userInput){
+                    case 1 :
+                        bankService.validateUser();
+                        System.out.print("Reset Your Name into : ");
+                        String newName = scanner.nextLine();
+                        bankService.updateUserName(newName);
+
+
+
+                }
+
+
+
         }
 
     }
