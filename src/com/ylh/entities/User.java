@@ -76,7 +76,7 @@ public class User {
         isActive = active;
     }
 
-    public User(int accountId, String fullName, String psw, LocalDate dateOfBirth, String email, String phoneNumber, double balance, boolean isActive) {
+    public User(int accountId, String fullName, String psw, LocalDate dateOfBirth, String email, String phoneNumber, double balance, boolean b) {
         this.accountId = accountId;
         this.fullName = fullName;
         this.psw = psw;

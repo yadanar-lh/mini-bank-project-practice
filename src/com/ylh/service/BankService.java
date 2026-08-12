@@ -1,22 +1,30 @@
 package com.ylh.service;
 
+import com.ylh.dto.UserDto;
 import com.ylh.entities.User;
+import com.ylh.ui.UserInputHandler;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankService {
-
-    Scanner scanner = new Scanner(System.in);
     private ArrayList<User> userAccounts = new ArrayList<>();
     private int accountId = 1;
 
-    //Create User Account
-    public void createUser(String fullName, String psw,LocalDate dateOfBirth, String email, String phoneNumber, double balance, boolean isActive){
+    //Create User Account Using DTO
+    public void createUser(UserDto dto){
 
-        User newUser = new User(accountId,fullName,psw,dateOfBirth,email,phoneNumber,balance,isActive);
-        userAccounts.add(newUser);
+        User newUser = new User(
+                accountId,
+                dto.getFullName(),
+                dto.getPassword(),
+                dto.getDateOfBirth(),
+                dto.getEmail(),
+                dto.getPhoneNumber(),
+                dto.getBalance(),
+                true
+                );
 
         //Show uer account created
         System.out.printf("""
@@ -35,87 +43,39 @@ public class BankService {
     ─────────────────────────────────────────────────────────────────────
         🎊 Thank you for joining Mini Bank! 🎊
     ─────────────────────────────────────────────────────────────────────
-    """, accountId, fullName, dateOfBirth, email, phoneNumber, balance, isActive);
+    """, accountId,dto.getFullName(),dto.getDateOfBirth(),dto.getEmail(),dto.getPhoneNumber(),dto.getBalance(),"active" );
 
         accountId++;
 
     }
 
-    public int validateUser(){
-        while(true){
-            System.out.print("Enter User ID : ");
-            int userID = scanner.nextInt();
-            scanner.nextLine();
-            boolean isFound = false;
-            int index = 0;
 
-            for(User users : userAccounts){
-                if(users.getAccountId() == userID){
-                    index = userAccounts.indexOf(users);
-                    isFound = true;
-                    break;
-                }
-            }
 
-            if(isFound){
-                System.out.print("Enter Password : ");
-                String userPsw = scanner.nextLine();
-                boolean isMatched = false;
-                if(userPsw.equals(userAccounts.get(index).getPsw())){
-                    System.out.printf("""
-    ✿ ✿ ✿ ✿ ✿  Welcome, %s!  ✿ ✿ ✿ ✿ ✿
-    """, userAccounts.get(index).getFullName());
-                    return index;
-                }
-            }
 
-            if(!isFound){
-                System.out.println("User ID not Found!");
 
+    public User findUserById(int accountId){
+        for(User user: userAccounts){
+            if(user.getAccountId() == accountId){
+                return user;
             }
         }
-
+        return null; // ID not found
     }
 
-    public void updateUserName(String newName){
-        int index = validateUser();
-        userAccounts.get(index).setFullName(newName);
-        System.out.printf("""
-    ························································
-    ·        ✅ Name Updated Successfully!               
-    ·        👤 Your name is set to: %s                  
-    ························································
-    """, newName);
+    public boolean updateUserName(User user, String newName){
+        if(user == null || newName == null || newName.isBlank()){
+            return false;
+        }
+        user.setFullName(newName);
+        return true;
     }
 
-    public void updateUserPsw(String newPsw){
-        int index = validateUser();
-        userAccounts.get(index).setPsw(newPsw);
-        System.out.printf("""
-    ························································
-    ·        🔐 Password Updated Successfully! ☑️                               
-    ························································
-    """);
-    }
-
-    public void updateUserEmail(String newEmail){
-        int index = validateUser();
-        userAccounts.get(index).setEmail(newEmail);
-        System.out.printf("""
-    ························································
-    ·        📧 Email Updated Successfully! ☑️                               
-    ························································
-    """);
-    }
-
-    public void updateUserPhNum(String newPhNum){
-        int index = validateUser();
-        userAccounts.get(index).setEmail(newPhNum);
-        System.out.printf("""
-    ························································
-    ·        📞 Phone Number Updated Successfully! ☑️                               
-    ························································
-    """);
+    public boolean updateUserPsw(User user, String newPsw){
+        if(user == null || newPsw == null){
+            return false;
+        }
+        user.setPsw(newPsw);
+        return true;
     }
 
 
