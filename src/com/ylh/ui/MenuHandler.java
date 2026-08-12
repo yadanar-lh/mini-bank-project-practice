@@ -107,6 +107,7 @@ public class MenuHandler {
                 for(int i = 3; i >= 0; i--){
                     String[] spinner = {"◐", "◓", "◑", "◒"};
                     System.out.printf("\r┃ ⏳ %s Going to Main Menu in %ds ┃", spinner[i % 4], i);
+                    System.out.println();
                     Thread.sleep(1000);
                 }
                 goToMenu = true;

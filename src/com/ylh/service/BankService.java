@@ -2,18 +2,15 @@ package com.ylh.service;
 
 import com.ylh.dto.UserDto;
 import com.ylh.entities.User;
-import com.ylh.ui.UserInputHandler;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BankService {
     private ArrayList<User> userAccounts = new ArrayList<>();
     private int accountId = 1;
 
     //Create User Account Using DTO
-    public void createUser(UserDto dto){
+    public User createUser(UserDto dto){
 
         User newUser = new User(
                 accountId,
@@ -45,13 +42,11 @@ public class BankService {
     ─────────────────────────────────────────────────────────────────────
     """, accountId,dto.getFullName(),dto.getDateOfBirth(),dto.getEmail(),dto.getPhoneNumber(),dto.getBalance(),"active" );
 
+        userAccounts.add(newUser);
         accountId++;
+        return newUser;
 
     }
-
-
-
-
 
     public User findUserById(int accountId){
         for(User user: userAccounts){
