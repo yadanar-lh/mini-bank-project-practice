@@ -70,7 +70,7 @@ public class BankService {
             }
 
             if(!isFound){
-                System.out.println("User ID not Found! Try Again!");
+                System.out.println("User ID not Found!");
 
             }
         }
@@ -88,6 +88,35 @@ public class BankService {
     """, newName);
     }
 
+    public void updateUserPsw(String newPsw){
+        int index = validateUser();
+        userAccounts.get(index).setPsw(newPsw);
+        System.out.printf("""
+    ························································
+    ·        🔐 Password Updated Successfully! ☑️                               
+    ························································
+    """);
+    }
+
+    public void updateUserEmail(String newEmail){
+        int index = validateUser();
+        userAccounts.get(index).setEmail(newEmail);
+        System.out.printf("""
+    ························································
+    ·        📧 Email Updated Successfully! ☑️                               
+    ························································
+    """);
+    }
+
+    public void updateUserPhNum(String newPhNum){
+        int index = validateUser();
+        userAccounts.get(index).setEmail(newPhNum);
+        System.out.printf("""
+    ························································
+    ·        📞 Phone Number Updated Successfully! ☑️                               
+    ························································
+    """);
+    }
 
 
 }

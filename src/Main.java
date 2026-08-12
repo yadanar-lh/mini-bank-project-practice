@@ -270,15 +270,36 @@ void main() throws InterruptedException {
 
                 switch (userInput){
                     case 1 :
-                        bankService.validateUser();
+
                         System.out.print("Reset Your Name into : ");
                         String newName = scanner.nextLine();
                         bankService.updateUserName(newName);
+                        break;
 
+                    case 2 :
 
+                        System.out.print("Reset Your Password : ");
+                        String newPsw = scanner.nextLine();
+                        bankService.updateUserPsw(newPsw);
+                        break;
+
+                    case 3 :
+
+                        System.out.print("Reset Your Email : ");
+                        String newEmail = scanner.nextLine();
+                        bankService.updateUserEmail(newEmail);
+                        break;
+
+                    case 4 :
+
+                        System.out.print("Reset Your Phone number : ");
+                        String newPhNum = scanner.nextLine();
+                        bankService.updateUserPhNum(newPhNum);
+                        break;
 
                 }
 
+                break; //case 2 break
 
 
         }
