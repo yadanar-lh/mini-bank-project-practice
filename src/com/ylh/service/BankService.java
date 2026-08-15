@@ -23,26 +23,6 @@ public class BankService {
                 dto.getBalance(),
                 true
                 );
-
-        //Show uer account created
-        System.out.printf("""
-    ─────────────────────────────────────────────────────────────────────
-        ✨ ACCOUNT SUCCESSFULLY CREATED! ✨
-    ─────────────────────────────────────────────────────────────────────
-    
-    📌  Account ID     : %d
-    📌  Full Name      : %s
-    📌  DOB            : %s
-    📌  Email          : %s
-    📌  Phone          : %s
-    📌  Balance        : $%.2f
-    📌  Status         : %s
-    
-    ─────────────────────────────────────────────────────────────────────
-        🎊 Thank you for joining Mini Bank! 🎊
-    ─────────────────────────────────────────────────────────────────────
-    """, accountId,dto.getFullName(),dto.getDateOfBirth(),dto.getEmail(),dto.getPhoneNumber(),dto.getBalance(),"active" );
-
         userAccounts.add(newUser);
         accountId++;
         return newUser;

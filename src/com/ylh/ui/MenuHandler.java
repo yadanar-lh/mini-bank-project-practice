@@ -12,7 +12,6 @@ public class MenuHandler {
     private static UserInputHandler inputHandler;
     private static BankService service;
 
-
     public MenuHandler(UserInputHandler inputHandler, BankService service) {
         this.inputHandler = inputHandler;
         this.service = service;
@@ -30,17 +29,15 @@ public class MenuHandler {
     ║    ◆  Main Menu                                          ║
     ║                                                          ║
     ║        1.  ✧  Create Account                             ║
-    ║        2.  ✧  Update Account                             ║
-    ║        3.  ✧  Show Account Info                          ║
+    ║        2.  ✧  Show Account Info                          ║
+    ║        3.  ✧  Update Account                             ║
     ║        4.  ✧  Delete Account                             ║
-    ║        5.  ✧  Show All Accounts                          ║
+    ║        5.  ✧  Withdraw Money                             ║
     ║                                                          ║
     ║    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
     ║                                                          ║
     ╚══════════════════════════════════════════════════════════╝
     """);
-
-
     }
 
     public static void showCreateMenu(){
@@ -67,7 +64,35 @@ public class MenuHandler {
         );
         //pass the dto to bank service
         service.createUser(dto);
+        System.out.printf("""
+    ─────────────────────────────────────────────────────────────────────
+        ✨ ACCOUNT SUCCESSFULLY CREATED! ✨
+        🎊 Thank you for joining Mini Bank! 🎊
+    ─────────────────────────────────────────────────────────────────────
+    """);
     }
+
+    public static void showAccountInfo(){
+        User user = inputHandler.validateUser();
+        System.out.printf("""
+    ─────────────────────────────────────────────────────────────────────
+        ✨ ACCOUNT INFO ✨
+    ─────────────────────────────────────────────────────────────────────
+    
+    📌  Account ID     : %d
+    📌  Full Name      : %s
+    📌  DOB            : %s
+    📌  Email          : %s
+    📌  Phone          : %s
+    📌  Balance        : $%.2f
+    📌  Status         : %s
+    
+    ─────────────────────────────────────────────────────────────────────
+        🎊 Thank you for joining Mini Bank! 🎊
+    ─────────────────────────────────────────────────────────────────────
+    """, user.getAccountId(),user.getFullName(),user.getDateOfBirth(),user.getEmail(),user.getPhoneNumber(),user.getBalance(),"active" );
+    }
+
 
     public static void showUpdateMenu(){
         Scanner scanner = new Scanner(System.in);
@@ -91,28 +116,5 @@ public class MenuHandler {
         }
     }
 
-    static boolean goToMenu = false;
-    public static boolean goToMenu() throws InterruptedException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Want to go to Main Menu? (yes/no) : ");
-        String inputToMenu = scanner.nextLine();
-        if(inputToMenu.equalsIgnoreCase("yes")){
-            goToMenu =  true;
-        } else if (inputToMenu.equalsIgnoreCase("no")) {
-            System.out.println("All your accounts will be lost as this is Temporary Array, Are You Sure?(Yes/no) : ");
-            String doubleCheckInput = scanner.nextLine();
-            if(doubleCheckInput.equalsIgnoreCase("yes")){
-                goToMenu = false;
-            } else if (doubleCheckInput.equalsIgnoreCase("no")){
-                for(int i = 3; i >= 0; i--){
-                    String[] spinner = {"◐", "◓", "◑", "◒"};
-                    System.out.printf("\r┃ ⏳ %s Going to Main Menu in %ds ┃", spinner[i % 4], i);
-                    System.out.println();
-                    Thread.sleep(1000);
-                }
-                goToMenu = true;
-            }
-        }
-        return goToMenu;
-    }
+
 }

@@ -20,13 +20,19 @@ void main() throws InterruptedException {
         scanner.nextLine();
         switch(userChosenNum) {
             case 1: MenuHandler.showCreateMenu();
-            if(MenuHandler.goToMenu()){
+            if(UserInputHandler.goToMenu()){
                 continue;
             } else {
                 break menu_loop;
             }
-            case 2: MenuHandler.showUpdateMenu();
-                if(MenuHandler.goToMenu()){
+            case 2 : MenuHandler.showAccountInfo();
+                if(UserInputHandler.goToMenu()){
+                    continue;
+                } else {
+                    break menu_loop;
+                }
+            case 3: MenuHandler.showUpdateMenu();
+                if(UserInputHandler.goToMenu()){
                     continue;
                 } else {
                     break menu_loop;

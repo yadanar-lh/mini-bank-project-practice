@@ -343,5 +343,35 @@ public class UserInputHandler {
 //    """);
 //    }
 
+    static boolean goToMenu = false;
+    public static boolean goToMenu() throws InterruptedException{
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Want to go to Main Menu? (yes/no) : ");
+        String inputToMenu = scanner.nextLine();
+        if(inputToMenu.equalsIgnoreCase("yes")){
+            showLoading("Main Menu");
+            goToMenu =  true;
+        } else if (inputToMenu.equalsIgnoreCase("no")) {
+            System.out.println("All your accounts will be lost as this is Temporary Array, Are You Sure?(Yes/no) : ");
+            String doubleCheckInput = scanner.nextLine();
+            if(doubleCheckInput.equalsIgnoreCase("yes")){
+                goToMenu = false;
+            } else if (doubleCheckInput.equalsIgnoreCase("no")){
+                showLoading("Main Menu");
+                goToMenu = true;
+            }
+        }
+        return goToMenu;
+    }
+
+    public static void showLoading(String text) throws InterruptedException {
+        for(int i = 3; i >= 0; i--){
+            String[] spinner = {"◐", "◓", "◑", "◒"};
+            System.out.printf("\r┃ ⏳ %s Going to %s in %ds ┃", spinner[i % 4],text, i);
+            System.out.println();
+            Thread.sleep(1000);
+        }
+    }
+
 
 }
