@@ -2,6 +2,7 @@ package com.ylh.service;
 
 import com.ylh.dto.UserDto;
 import com.ylh.entities.User;
+import com.ylh.ui.UserInputHandler;
 
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class BankService {
     }
 
     public boolean updateUserName(User user, String newName){
-        if(user == null || newName == null || newName.isBlank()){
+        if(user == null || newName == null){
             return false;
         }
         user.setFullName(newName);
@@ -72,6 +73,8 @@ public class BankService {
         user.setPsw(newPsw);
         return true;
     }
+
+//    public boolean updateUserEmail()
 
 
 }

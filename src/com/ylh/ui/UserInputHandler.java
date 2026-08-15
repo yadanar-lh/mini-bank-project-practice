@@ -1,8 +1,6 @@
 package com.ylh.ui;
-
 import com.ylh.entities.User;
 import com.ylh.service.BankService;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,8 +11,8 @@ import java.util.regex.Pattern;
 
 public class UserInputHandler {
 
-    private final Scanner scanner;
-    private final BankService bankService;
+    private Scanner scanner;
+    private BankService bankService;
     final Pattern MYANMAR_PH_REGEX = Pattern.compile("^(09\\d{7,9}|01\\d{5,7})$");
 
     public UserInputHandler(Scanner scanner, BankService bankService) {
@@ -23,41 +21,47 @@ public class UserInputHandler {
     }
 
     public String readFullName() {
-
         String fullName;
         while (true) {
             System.out.print("Full Name : ");
              fullName = scanner.nextLine();
-            String trimmedName = fullName.trim();
-            if (fullName == null || fullName.isEmpty() || fullName.isBlank()) {
-                System.out.println("Please Enter Your Name!");
-                continue;
-            }
-
-            if (!trimmedName.contains(" ")) {
-                System.out.println("Please Enter Your Full Name!");
-                continue;
-            }
-
-            boolean hasValidator = false;
-            for (int i = 0; i < trimmedName.length(); i++) {
-                char ch = trimmedName.charAt(i);
-                if (!Character.isLetter(ch) && ch != ' ' && ch != '-' && ch != '\'') {
-                    hasValidator = true;
-                }
-            }
-            if (hasValidator) {
-                System.out.println("Name must Include Letter, space, hyphen and apostrophe only!");
-            } else {
-                System.out.printf("""
-                        . . . . . . . . . . . . . . . . . . . . . . . . . .                                             
-                        .    ✅ Name Created Successfully: %s ✅                                                         
-                        . . . . . . . . . . . . . . . . . . . . . . . . . .
-                        """, fullName);
-                break;
-            }
+             if(isValidName(fullName)){
+                 System.out.printf("""
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .                                                
+                                .  👤 Name Created Successfully! %s ☑️                                               
+                                . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                """, fullName);
+                 break;
+             } else {
+                 System.out.println("Name Creation Failed! Try Again");
+             }
         }
         return fullName;
+    }
+
+    public boolean isValidName(String fullName){
+        boolean hasValidator = false;
+        String trimmedName = fullName.trim();
+        if (fullName == null || fullName.isEmpty() || fullName.isBlank()) {
+            System.out.println("Name can't be empty!");
+            return false;
+        } else if (!trimmedName.contains(" ")) {
+            System.out.println("Please Enter Your Full Name!");
+            return false;
+        }
+
+        for (int i = 0; i < trimmedName.length(); i++) {
+            char ch = trimmedName.charAt(i);
+            if (!Character.isLetter(ch) && ch != ' ' && ch != '-' && ch != '\'') {
+                hasValidator = false;
+            } else {
+                hasValidator = true;
+            }
+        }
+        if (!hasValidator) {
+            System.out.println("Name must Include Letter, space, hyphen and apostrophe only!");
+        }
+        return hasValidator;
     }
 
     public String readPsw(){
@@ -257,9 +261,16 @@ public class UserInputHandler {
 
 
     public String readNewName(){
-        System.out.print("Enter New Name : ");
-        String newName = scanner.nextLine();
-        return newName;
+        String newName;
+        while (true) {
+            System.out.print("Full Name : ");
+            newName = scanner.nextLine();
+            if(isValidName(newName)){
+             return newName;
+            } else {
+                return null;
+            }
+        }
     }
 
     public String readNewPsw(){

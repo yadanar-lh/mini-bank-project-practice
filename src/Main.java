@@ -1,12 +1,9 @@
-import com.ylh.dto.UserDto;
-import com.ylh.entities.User;
+
 import com.ylh.service.BankService;
 import com.ylh.ui.MenuHandler;
 import com.ylh.ui.UserInputHandler;
 
 import javax.swing.*;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
 import java.util.Scanner;
 void main() throws InterruptedException {
@@ -17,7 +14,6 @@ void main() throws InterruptedException {
 
     menu_loop:
     while(true){
-
         MenuHandler.showMainMenu();
         System.out.print("Enter : ");
         int userChosenNum = scanner.nextInt();
