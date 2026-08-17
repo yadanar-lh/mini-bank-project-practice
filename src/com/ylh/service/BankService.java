@@ -2,8 +2,6 @@ package com.ylh.service;
 
 import com.ylh.dto.UserDto;
 import com.ylh.entities.User;
-import com.ylh.ui.UserInputHandler;
-
 import java.util.ArrayList;
 
 public class BankService {
@@ -26,7 +24,6 @@ public class BankService {
         userAccounts.add(newUser);
         accountId++;
         return newUser;
-
     }
 
     public User findUserById(int accountId){

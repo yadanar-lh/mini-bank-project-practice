@@ -116,36 +116,50 @@ public class UserInputHandler {
     }
 
     public LocalDate readDob(){
-        LocalDate dateOfBirth;
+        LocalDate dateOfBirth = null;
         while (true) {
             System.out.print("Date Of Birth(YYYY-MM-DD) : ");
             String rawDOB;
             rawDOB = scanner.nextLine();
-
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                 dateOfBirth = LocalDate.parse(rawDOB, formatter);
-                LocalDate today = LocalDate.now();
-                boolean isAdult = dateOfBirth.isBefore(today.minusYears(18));
-                boolean isOldest = dateOfBirth.isAfter(today.minusYears(120));
-                if (isAdult && isOldest) {
-                    System.out.printf("""
+            if(isValidDob(rawDOB)){
+                dateOfBirth = formatDate(rawDOB);
+                System.out.printf("""
                                     . . . . . . . . . . . . . . . . . . . . . . . . . .
                                     .    🎉✨  AGE VERIFIED SUCCESSFULLY!  ✨🎉                 
                                     . . . . . . . . . . . . . . . . . . . . . . . . . .
                                     """);
-                    break;
-                } else {
-                    System.out.println("⚠️ Age must be after 18 and under 120! ⚠️");
 
-                }
-            } catch (DateTimeException e) {
-                System.out.println("Illegal Year, Month or Date Provided!");
-
+                break;
             }
 
         }
         return dateOfBirth;
+    }
+
+    public <localDate> localDate formatDate(String s){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateOfBirth = LocalDate.parse(s, formatter);
+        return (localDate) dateOfBirth;
+    }
+
+    public boolean isValidDob(String s){
+        boolean isValidDob = false;
+        try {
+            LocalDate dateOfBirth = formatDate(s);
+            LocalDate today = LocalDate.now();
+            boolean isAdult = dateOfBirth.isBefore(today.minusYears(18));
+            boolean isOldest = dateOfBirth.isAfter(today.minusYears(120));
+            if (isAdult && isOldest) {
+                isValidDob = true;
+            } else {
+                System.out.println("⚠️ Age must be after 18 and under 120! ⚠️");
+                isValidDob = false;
+            }
+        } catch (DateTimeException e) {
+            System.out.println("Illegal Year, Month or Date Provided!");
+            isValidDob = false;
+        }
+        return isValidDob;
     }
 
     public String readEmail(){
@@ -153,9 +167,7 @@ public class UserInputHandler {
         while (true) {
             System.out.print("Email : ");
             email = scanner.nextLine();
-            if (email == null || !email.contains("@")) {
-                System.out.println("Invalid Email");
-            } else {
+            if(isValidEmail(email)){
                 System.out.printf("""
                                 . . . . . . . . . . . . . . . . . . . . . . . . . .
                                 .    🎉✨  Email VERIFIED SUCCESSFULLY!  ✨🎉                   
@@ -163,57 +175,101 @@ public class UserInputHandler {
                                 """);
                 break;
             }
+
         }
         return email;
     }
 
+    public boolean isValidEmail(String email){
+        boolean isValidEmail;
+        if (email == null || !email.contains("@") || !email.contains("mail") || !email.contains("edu")) {
+            System.out.println("Invalid Email");
+             isValidEmail = false;
+        } else if (email.contains("mail")){
+            if(email.endsWith(".com")){
+                isValidEmail = true;
+            } else {
+                System.out.println("Invalid Email");
+                isValidEmail = false;
+            }
+        } else {
+            isValidEmail = true;
+        }
+        return isValidEmail;
+    }
+
     public String readPhNum(){
-        String phoneNumber;
+        String phNum;
         while (true) {
             System.out.print("Phone Number : ");
-            phoneNumber = scanner.nextLine();
-            String cleanPhNum = phoneNumber.replaceAll("[\\s\\-\\(\\)]", "");
-            if(cleanPhNum == null){
-                System.out.println("⚠️ Enter Your Phone Number! ⚠️");
-                continue;
-            }
-
-            Matcher matcher = MYANMAR_PH_REGEX.matcher(cleanPhNum);
-            if(matcher.matches()){
+            phNum = scanner.nextLine();
+            if(isValidPhNum(phNum)){
                 System.out.printf("""
                                 . . . . . . . . . . . . . . . . . . . . . . . . . .
                                 .    🎉✨  PHONE NUMBER ADDED SUCCESSFULLY!  ✨🎉                
                                 . . . . . . . . . . . . . . . . . . . . . . . . . .
                                 """);
                 break;
-            } else {
-                System.out.println("Invalid Phone Number! Try Again!");
             }
+
         }
-        return phoneNumber;
+        return phNum;
+    }
+
+    public boolean isValidPhNum(String phNum){
+        boolean isValidPhNum;
+        String cleanPhNum = phNum.replaceAll("[\\s\\-\\(\\)]", "");
+        Matcher matcher = MYANMAR_PH_REGEX.matcher(cleanPhNum);
+
+        if(cleanPhNum == null){
+            System.out.println("⚠️ Enter Your Phone Number! ⚠️");
+            isValidPhNum = false;
+        } else if(matcher.matches()){
+            isValidPhNum = true;
+        } else {
+            System.out.println("Invalid Phone Number! Try Again!");
+            isValidPhNum = false;
+        }
+        return isValidPhNum;
     }
 
     public double readBalance(){
-        double balance;
-        while(true){
-            boolean isValid = false;
-            try{
-                System.out.print("Initial Balance ($): ");
-                balance = scanner.nextDouble();
-                scanner.nextLine();
-                isValid = true;
+        String input;
+        double balance = 0;
+        while(true) {
+            System.out.print("Initial Balance ($): ");
+            input = scanner.nextLine();
+            if(isValidBalance(input)){
+                balance = Double.parseDouble(input);
                 System.out.printf("""
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                .    🎉✨  Your Balance : $ %.2f  ✨🎉                   
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                """, balance);
-                break;
+                    . . . . . . . . . . . . . . . . . . . . . . . . . .
+                    .    🎉✨  Your Balance : $ %.2f  ✨🎉                   
+                    . . . . . . . . . . . . . . . . . . . . . . . . . .
+                    """, balance);
 
-            } catch (InputMismatchException e){
-                System.out.println("⚠️ You entered a character, Just enter Numbers!");
+                break;
             }
         }
         return balance;
+    }
+
+    public boolean isValidBalance(String input){
+        if(input == null || input.trim().isEmpty()){
+            System.out.println("Please Enter the Balance!");
+            return false;
+        }
+        double balance;
+        try{
+            balance = Double.parseDouble(input);
+            if(balance <= 0){
+                System.out.println("Balance cannot be negative or 0!");
+                return false;
+            }
+           return true;
+        } catch (NumberFormatException e){
+            System.out.println("⚠️ You entered a character, Just enter Numbers!");
+            return false;
+        }
     }
 
     public void readIsActive(){
@@ -249,9 +305,11 @@ public class UserInputHandler {
             System.out.print("Enter Password : ");
             String userPsw = scanner.nextLine();
             if (userPsw.equals(user.getPsw())) {
+
                 System.out.printf("""
-✿ ✿ ✿ ✿ ✿  Welcome, %s!  ✿ ✿ ✿ ✿ ✿
-""", user.getFullName());
+                ✿ ✿ ✿ ✿ ✿  Welcome, %s!  ✿ ✿ ✿ ✿ ✿
+                """, user.getFullName());
+
                 return user;
             } else {
                 System.out.println("⚠️ Incorrect Password! Try again.");
@@ -273,28 +331,6 @@ public class UserInputHandler {
         }
     }
 
-    public String readNewPsw(){
-        System.out.print("Enter New Psw : ");
-        String newPsw = scanner.nextLine();
-        if(isValidPassword(newPsw)){
-            return newPsw;
-        } else {
-            return null;
-        }
-    }
-
-    public String readNewEmail(){
-        System.out.print("Enter New Email : ");
-        String newEmail = scanner.nextLine();
-        return newEmail;
-    }
-
-    public String readNewPhNum(){
-        System.out.print("Enter New Phone Number : ");
-        String newPhNum = scanner.nextLine();
-        return newPhNum;
-    }
-
     public void handledUpdatedUserName(User user){
         String newName = readNewName();
         if(bankService.updateUserName(user,newName)){
@@ -309,6 +345,16 @@ public class UserInputHandler {
         }
     }
 
+    public String readNewPsw(){
+        System.out.print("Enter New Psw : ");
+        String newPsw = scanner.nextLine();
+        if(isValidPassword(newPsw)){
+            return newPsw;
+        } else {
+            return null;
+        }
+    }
+
     public void handledUpdatedUserPsw(User user){
         String newPsw = readNewPsw();
         if(bankService.updateUserPsw(user, newPsw)){
@@ -320,6 +366,18 @@ public class UserInputHandler {
         }else {
             System.out.println("⚠️ Update failed! Invalid Password provided.");
         }
+    }
+
+    public String readNewEmail(){
+        System.out.print("Enter New Email : ");
+        String newEmail = scanner.nextLine();
+        return newEmail;
+    }
+
+    public String readNewPhNum(){
+        System.out.print("Enter New Phone Number : ");
+        String newPhNum = scanner.nextLine();
+        return newPhNum;
     }
 
 
