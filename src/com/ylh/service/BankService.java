@@ -61,7 +61,21 @@ public class BankService {
         return true;
     }
 
-//    public boolean updateUserEmail()
+    public boolean updateUserEmail(User user, String newEmail){
+        if(user == null || newEmail == null){
+            return false;
+        }
+        user.setPhoneNumber(newEmail);
+        return true;
+    }
+
+    public boolean updateUserPhNum(User user, String newPhNum){
+        if(user == null || newPhNum == null){
+            return false;
+        }
+        user.setPhoneNumber(newPhNum);
+        return true;
+    }
 
 
 }

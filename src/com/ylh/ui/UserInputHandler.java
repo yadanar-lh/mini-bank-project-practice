@@ -27,10 +27,11 @@ public class UserInputHandler {
              fullName = scanner.nextLine();
              if(isValidName(fullName)){
                  System.out.printf("""
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .                                                
-                                .  👤 Name Created Successfully! %s ☑️                                               
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                """, fullName);
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .                                                
+                                                        .   👤 NAME CREATED SUCCESSFULLY! %s ☑️                                               
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    
+                 """, fullName);
                  break;
              } else {
                  System.out.println("Name Creation Failed! Try Again");
@@ -71,10 +72,11 @@ public class UserInputHandler {
             psw = scanner.nextLine();
             if (isValidPassword(psw)){
                 System.out.printf("""
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .                                                
-                                .    🔐 Password Created Successfully! 🔐                                               
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                """);
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .                                                
+                                                        .    🔐 PASSWORD CREATED SUCCESSFULLY 🔐                                               
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    
+                """);
                 break;
             }
         }
@@ -124,10 +126,11 @@ public class UserInputHandler {
             if(isValidDob(rawDOB)){
                 dateOfBirth = formatDate(rawDOB);
                 System.out.printf("""
-                                    . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                    .    🎉✨  AGE VERIFIED SUCCESSFULLY!  ✨🎉                 
-                                    . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                    """);
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                        .    🎉✨  AGE VERIFIED SUCCESSFULLY!  ✨🎉                 
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    
+                """);
 
                 break;
             }
@@ -169,10 +172,11 @@ public class UserInputHandler {
             email = scanner.nextLine();
             if(isValidEmail(email)){
                 System.out.printf("""
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                .    🎉✨  Email VERIFIED SUCCESSFULLY!  ✨🎉                   
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                """);
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                        .    🎉✨  Email VERIFIED SUCCESSFULLY!  ✨🎉                   
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    
+                """);
                 break;
             }
 
@@ -181,21 +185,28 @@ public class UserInputHandler {
     }
 
     public boolean isValidEmail(String email){
-        boolean isValidEmail;
-        if (email == null || !email.contains("@") || !email.contains("mail") || !email.contains("edu")) {
-            System.out.println("Invalid Email");
-             isValidEmail = false;
-        } else if (email.contains("mail")){
-            if(email.endsWith(".com")){
-                isValidEmail = true;
-            } else {
-                System.out.println("Invalid Email");
-                isValidEmail = false;
-            }
-        } else {
-            isValidEmail = true;
+        if (email == null || !email.contains("@")) {
+            System.out.println("Email Address must include \"@\" !");
+             return false;
         }
-        return isValidEmail;
+
+        if(email.contains("mail") || email.contains("edu")){
+            if(email.contains("mail")){
+                if(email.endsWith(".com")){
+                    return true;
+                } else {
+                    System.out.println("Check Your Email Spelling!");
+                    return false;
+                }
+            } else {
+                return true;
+            }
+        } else{
+            System.out.println("Check Your Email Again!");
+            return false;
+        }
+
+
     }
 
     public String readPhNum(){
@@ -205,10 +216,11 @@ public class UserInputHandler {
             phNum = scanner.nextLine();
             if(isValidPhNum(phNum)){
                 System.out.printf("""
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                .    🎉✨  PHONE NUMBER ADDED SUCCESSFULLY!  ✨🎉                
-                                . . . . . . . . . . . . . . . . . . . . . . . . . .
-                                """);
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                        .    🎉✨  PHONE NUMBER ADDED SUCCESSFULLY!  ✨🎉                
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    
+                """);
                 break;
             }
 
@@ -242,10 +254,11 @@ public class UserInputHandler {
             if(isValidBalance(input)){
                 balance = Double.parseDouble(input);
                 System.out.printf("""
-                    . . . . . . . . . . . . . . . . . . . . . . . . . .
-                    .    🎉✨  Your Balance : $ %.2f  ✨🎉                   
-                    . . . . . . . . . . . . . . . . . . . . . . . . . .
-                    """, balance);
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                        .    🎉✨  Your Balance : $ %.2f  ✨🎉                   
+                                                        . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                    
+                 """, balance);
 
                 break;
             }
@@ -307,7 +320,9 @@ public class UserInputHandler {
             if (userPsw.equals(user.getPsw())) {
 
                 System.out.printf("""
-                ✿ ✿ ✿ ✿ ✿  Welcome, %s!  ✿ ✿ ✿ ✿ ✿
+                                        
+                                                        ✿ ✿ ✿ ✿ ✿  Welcome, %s!  ✿ ✿ ✿ ✿ ✿
+                                        
                 """, user.getFullName());
 
                 return user;
@@ -335,11 +350,12 @@ public class UserInputHandler {
         String newName = readNewName();
         if(bankService.updateUserName(user,newName)){
             System.out.printf("""
-    ························································
-    ·        ✅ Name Updated Successfully!               
-    ·        👤 Your name is set to: %s                  
-    ························································
-    """, newName);
+                                                ························································
+                                                ·        ✅ Name Updated Successfully!               
+                                                ·        👤 Your name is set to: %s                  
+                                                ························································
+                            
+            """, newName);
         } else {
             System.out.println("⚠️ Update failed! Invalid name provided.");
         }
@@ -359,11 +375,12 @@ public class UserInputHandler {
         String newPsw = readNewPsw();
         if(bankService.updateUserPsw(user, newPsw)){
             System.out.printf("""
-    ························································
-    ·        🔐 Password Updated Successfully! ☑️                               
-    ························································
-    """);
-        }else {
+                                                    ························································
+                                                    ·        🔐 Password Updated Successfully! ☑️                               
+                                                    ························································
+                            
+            """);
+        } else {
             System.out.println("⚠️ Update failed! Invalid Password provided.");
         }
     }
@@ -383,11 +400,12 @@ public class UserInputHandler {
         LocalDate newDob = readNewDob();
         if(bankService.updateUserDob(user, newDob)){
             System.out.printf("""
-    ························································
-    ·        🔐 Date Of Birth is Updated Successfully! ☑️                               
-    ························································
-    """);
-        }else {
+                                                ························································
+                                                ·        🔐 Date Of Birth is Updated Successfully! ☑️                               
+                                                ························································
+                            
+            """);
+        } else {
             System.out.println("⚠️ Update failed! Invalid DOB provided.");
         }
     }
@@ -395,35 +413,51 @@ public class UserInputHandler {
     public String readNewEmail(){
         System.out.print("Enter New Email : ");
         String newEmail = scanner.nextLine();
-        return newEmail;
+        if(isValidEmail(newEmail)){
+            return newEmail;
+        } else {
+            return null;
+        }
+    }
+
+    public void handledUpdatedUserEmail(User user){
+        String newEmail = readNewEmail();
+        if(bankService.updateUserEmail(user, newEmail)){
+            System.out.printf("""
+                                                ························································
+                                                ·        📧 Email Updated Successfully! ☑️
+                                                ························································
+                            
+            """);
+        } else {
+            System.out.println("⚠️ Update failed! Invalid Email provided.");
+        }
     }
 
     public String readNewPhNum(){
         System.out.print("Enter New Phone Number : ");
         String newPhNum = scanner.nextLine();
-        return newPhNum;
+        if(isValidPhNum(newPhNum)){
+            return newPhNum;
+        } else {
+            return null;
+        }
     }
 
+    public void handledUpdatedUserPhNum(User user){
+        String newPhNum = readNewPhNum();
+        if(bankService.updateUserPhNum(user, newPhNum)){
+            System.out.printf("""
+                                                ························································
+                                                ·        📞 Phone Number Updated Successfully! ☑️
+                                                ························································
+                            
+            """);
+        } else {
+            System.out.println("⚠️ Update failed! Invalid Phone Number provided.");
+        }
+    }
 
-//    public void updateUserEmail(String newEmail){
-//        User user = validateUser();
-//        user.setEmail(newEmail);
-//        System.out.printf("""
-//    ························································
-//    ·        📧 Email Updated Successfully! ☑️
-//    ························································
-//    """);
-//    }
-//
-//    public void updateUserPhNum(String newPhNum){
-//        int index = validateUser();
-//        userAccounts.get(index).setEmail(newPhNum);
-//        System.out.printf("""
-//    ························································
-//    ·        📞 Phone Number Updated Successfully! ☑️
-//    ························································
-//    """);
-//    }
 
     static boolean goToMenu = false;
     public static boolean goToMenu() throws InterruptedException{
@@ -434,7 +468,7 @@ public class UserInputHandler {
             showLoading("Main Menu");
             goToMenu =  true;
         } else if (inputToMenu.equalsIgnoreCase("no")) {
-            System.out.println("All your accounts will be lost as this is Temporary Array, Are You Sure?(Yes/no) : ");
+            System.out.print("All your accounts will be lost as this is Temporary Array, Are You Sure?(Yes/no) : ");
             String doubleCheckInput = scanner.nextLine();
             if(doubleCheckInput.equalsIgnoreCase("yes")){
                 goToMenu = false;
@@ -447,19 +481,25 @@ public class UserInputHandler {
     }
 
     public static void showLoading(String text) throws InterruptedException {
-        for(int i = 3; i >= 0; i--){
-            String[] spinner = {"◐", "◓", "◑", "◒"};
-            System.out.printf("\r┃ ⏳ %s Going to %s in %ds ┃", spinner[i % 4],text, i);
-            System.out.println();
+        String[] spinner = {"◐", "◓", "◑", "◒"};
+        System.out.println();
+
+        for (int i = 3; i >= 0; i--) {
+            System.out.print("\r                                                ┃ ⏳ " + spinner[i % 4] + " Going to " + text + " in " + i + "s ┃");
+            System.out.flush(); // Force the console to display the line immediately
+
             Thread.sleep(1000);
         }
+
+        System.out.println("\n"); // Push down to a fresh line when the countdown finishes
     }
 
-    public boolean wantToUpdateOtherFields(){
+    public boolean wantToUpdateOtherFields() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Do you want to update other fields? (yes/no) : ");
         String input = scanner.nextLine();
         if(input.equalsIgnoreCase("yes")){
+            showLoading("Update");
             return true;
         } else if(input.equalsIgnoreCase("no")){
             return false;
