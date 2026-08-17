@@ -12,31 +12,23 @@ void main() throws InterruptedException {
     UserInputHandler userInputHandler = new UserInputHandler(scanner,bankService);
     MenuHandler menuHandler = new MenuHandler(userInputHandler,bankService);
 
-    menu_loop:
     while(true){
         MenuHandler.showMainMenu();
+
         System.out.print("Enter : ");
         int userChosenNum = scanner.nextInt();
         scanner.nextLine();
+
         switch(userChosenNum) {
-            case 1: MenuHandler.showCreateMenu();
-            if(UserInputHandler.goToMenu()){
+            case 1: MenuHandler.showCreateMenu(); break;
+            case 2 : MenuHandler.showAccountInfo(); break;
+            case 3: MenuHandler.showUpdateMenu(); break;
+            default:
+                System.out.println("Invalid Input! Please Enter only 1-5!");
                 continue;
-            } else {
-                break menu_loop;
-            }
-            case 2 : MenuHandler.showAccountInfo();
-                if(UserInputHandler.goToMenu()){
-                    continue;
-                } else {
-                    break menu_loop;
-                }
-            case 3: MenuHandler.showUpdateMenu();
-                if(UserInputHandler.goToMenu()){
-                    continue;
-                } else {
-                    break menu_loop;
-                }
+        }
+        if(!userInputHandler.goToMenu()){
+            break;
         }
 
     }
