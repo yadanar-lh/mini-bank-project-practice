@@ -2,6 +2,8 @@ package com.ylh.service;
 
 import com.ylh.dto.UserDto;
 import com.ylh.entities.User;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BankService {
@@ -48,6 +50,14 @@ public class BankService {
             return false;
         }
         user.setPsw(newPsw);
+        return true;
+    }
+
+    public boolean updateUserDob(User user, LocalDate newDob){
+        if(user == null || newDob == null){
+            return false;
+        }
+        user.setDateOfBirth(newDob);
         return true;
     }
 

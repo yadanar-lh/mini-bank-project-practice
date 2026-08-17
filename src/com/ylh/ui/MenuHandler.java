@@ -17,34 +17,34 @@ public class MenuHandler {
     }
 
 
-    public static void showMainMenu(){
+    public static void showMainMenu() {
         System.out.printf("""
-    ╔══════════════════════════════════════════════════════════╗
-    ║                                                          ║
-    ║    ★  ★  ★  M I N I  B A N K  ★  ★  ★                  ║
-    ║                                                          ║
-    ║    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
-    ║                                                          ║
-    ║    ◆  Main Menu                                          ║
-    ║                                                          ║
-    ║        1.  ✧  Create Account                             ║
-    ║        2.  ✧  Show Account Info                          ║
-    ║        3.  ✧  Update Account                             ║
-    ║        4.  ✧  Delete Account                             ║
-    ║        5.  ✧  Withdraw Money                             ║
-    ║                                                          ║
-    ║    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
-    ║                                                          ║
-    ╚══════════════════════════════════════════════════════════╝
-    """);
+                ╔══════════════════════════════════════════════════════════╗
+                ║                                                          ║
+                ║    ★  ★  ★  M I N I  B A N K  ★  ★  ★                  ║
+                ║                                                          ║
+                ║    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
+                ║                                                          ║
+                ║    ◆  Main Menu                                          ║
+                ║                                                          ║
+                ║        1.  ✧  Create Account                             ║
+                ║        2.  ✧  Show Account Info                          ║
+                ║        3.  ✧  Update Account                             ║
+                ║        4.  ✧  Delete Account                             ║
+                ║        5.  ✧  Withdraw Money                             ║
+                ║                                                          ║
+                ║    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━    ║
+                ║                                                          ║
+                ╚══════════════════════════════════════════════════════════╝
+                """);
     }
 
-    public static void showCreateMenu(){
+    public static void showCreateMenu() {
         System.out.printf("""
-                        ════════════════════════════════════════════
-                            ✧✧  CREATE YOUR ACCOUNT  ✧✧
-                        ════════════════════════════════════════════
-                        """);
+                ════════════════════════════════════════════
+                    ✧✧  CREATE YOUR ACCOUNT  ✧✧
+                ════════════════════════════════════════════
+                """);
         String fullName = inputHandler.readFullName();
         String psw = inputHandler.readPsw();
         LocalDate dob = inputHandler.readDob();
@@ -64,56 +64,66 @@ public class MenuHandler {
         //pass the dto to bank service
         service.createUser(dto);
         System.out.printf("""
-    ─────────────────────────────────────────────────────────────────────
-        ✨ ACCOUNT SUCCESSFULLY CREATED! ✨
-        🎊 Thank you for joining Mini Bank! 🎊
-    ─────────────────────────────────────────────────────────────────────
-    """);
+                ─────────────────────────────────────────────────────────────────────
+                    ✨ ACCOUNT SUCCESSFULLY CREATED! ✨
+                    🎊 Thank you for joining Mini Bank! 🎊
+                ─────────────────────────────────────────────────────────────────────
+                """);
     }
 
-    public static void showAccountInfo(){
+    public static void showAccountInfo() {
         User user = inputHandler.validateUser();
         System.out.printf("""
-    ─────────────────────────────────────────────────────────────────────
-        ✨ ACCOUNT INFO ✨
-    ─────────────────────────────────────────────────────────────────────
-    
-    📌  Account ID     : %d
-    📌  Full Name      : %s
-    📌  DOB            : %s
-    📌  Email          : %s
-    📌  Phone          : %s
-    📌  Balance        : $%.2f
-    📌  Status         : %s
-    
-    ─────────────────────────────────────────────────────────────────────
-        🎊 Thank you for joining Mini Bank! 🎊
-    ─────────────────────────────────────────────────────────────────────
-    """, user.getAccountId(),user.getFullName(),user.getDateOfBirth(),user.getEmail(),user.getPhoneNumber(),user.getBalance(),"active" );
+                ─────────────────────────────────────────────────────────────────────
+                    ✨ ACCOUNT INFO ✨
+                ─────────────────────────────────────────────────────────────────────
+                
+                📌  Account ID     : %d
+                📌  Full Name      : %s
+                📌  DOB            : %s
+                📌  Email          : %s
+                📌  Phone          : %s
+                📌  Balance        : $%.2f
+                📌  Status         : %s
+                
+                ─────────────────────────────────────────────────────────────────────
+                    🎊 Thank you for joining Mini Bank! 🎊
+                ─────────────────────────────────────────────────────────────────────
+                """, user.getAccountId(), user.getFullName(), user.getDateOfBirth(), user.getEmail(), user.getPhoneNumber(), user.getBalance(), "active");
     }
 
 
-    public static void showUpdateMenu(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.printf("""
-                        ════════════════════════════════════════════
-                            ✧✧  UPDATE YOUR ACCOUNT  ✧✧
-                        ════════════════════════════════════════════
-                        1. NAME
-                        2. PASSWORD
-                        3. EMAIL
-                        4. PHONE NUMBER
-                        ════════════════════════════════════════════
-                        """);
+    public static void showUpdateMenu() {
         User loggedInUser = inputHandler.validateUser();
-        System.out.print("Enter : ");
-        int userInput = scanner.nextInt();
-        scanner.nextLine();
-        switch (userInput){
-            case 1 : inputHandler.handledUpdatedUserName(loggedInUser); break;
-            case 2 : inputHandler.handledUpdatedUserPsw(loggedInUser); break;
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.printf("""
+                    ════════════════════════════════════════════
+                        ✧✧  UPDATE YOUR ACCOUNT  ✧✧
+                    ════════════════════════════════════════════
+                    1. NAME
+                    2. PASSWORD
+                    3. DOB
+                    4. EMAIL
+                    5. PHONE NUMBER
+                    ════════════════════════════════════════════
+                    """);
+
+            System.out.print("Enter : ");
+            int userInput = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (userInput) {
+                case 1: inputHandler.handledUpdatedUserName(loggedInUser); break;
+                case 2: inputHandler.handledUpdatedUserPsw(loggedInUser); break;
+                case 3: inputHandler.handledUpdatedUserDob(loggedInUser); break;
+                default: System.out.println("Invalid Input! Please select 1-5!"); continue;
+            }
+
+            if(!inputHandler.wantToUpdateOtherFields()) {
+                break;
+            }
         }
     }
-
-
 }

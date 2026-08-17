@@ -368,6 +368,30 @@ public class UserInputHandler {
         }
     }
 
+    public LocalDate readNewDob(){
+        System.out.print("Enter New DOB : ");
+        String newDob = scanner.nextLine();
+        if(isValidDob(newDob)){
+            LocalDate dob = formatDate(newDob);
+            return dob;
+        } else {
+            return null;
+        }
+    }
+
+    public void handledUpdatedUserDob(User user){
+        LocalDate newDob = readNewDob();
+        if(bankService.updateUserDob(user, newDob)){
+            System.out.printf("""
+    ························································
+    ·        🔐 Date Of Birth is Updated Successfully! ☑️                               
+    ························································
+    """);
+        }else {
+            System.out.println("⚠️ Update failed! Invalid DOB provided.");
+        }
+    }
+
     public String readNewEmail(){
         System.out.print("Enter New Email : ");
         String newEmail = scanner.nextLine();
@@ -428,6 +452,20 @@ public class UserInputHandler {
             System.out.printf("\r┃ ⏳ %s Going to %s in %ds ┃", spinner[i % 4],text, i);
             System.out.println();
             Thread.sleep(1000);
+        }
+    }
+
+    public boolean wantToUpdateOtherFields(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Do you want to update other fields? (yes/no) : ");
+        String input = scanner.nextLine();
+        if(input.equalsIgnoreCase("yes")){
+            return true;
+        } else if(input.equalsIgnoreCase("no")){
+            return false;
+        } else {
+            System.out.println("Invalid Response");
+            return false;
         }
     }
 
